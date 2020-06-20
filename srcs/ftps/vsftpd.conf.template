@@ -1,0 +1,20 @@
+write_enable=yes
+listen=yes
+background=no
+ssl_enable=yes
+pasv_min_port=2121
+pasv_max_port=2121
+rsa_private_key_file=/usr/share/ssl/certs/vsftpd.key
+ftpd_banner=unsecure ftp shitshow
+pasv_address=_MINIKUBE_IP_
+
+#i hate security with a passion
+run_as_launching_user=yes
+seccomp_sandbox=NO
+chown_upload_mode=0777
+no_anon_password=yes
+anon_other_write_enable=yes
+anon_mkdir_write_enable=yes
+anon_upload_enable=yes
+anon_world_readable_only=no
+allow_anon_ssl=yes
