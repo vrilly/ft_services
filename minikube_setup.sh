@@ -91,6 +91,8 @@ setup ()
 	export MINIKUBE_IP=$(minikube ip)
 	eval $(minikube -p minikube docker-env)
 	setup_pods
+	dialog --msgbox "Cluster IP: $MINIKUBE_IP\nSuccess!" \
+		0 0
 }
 
 eval $1
