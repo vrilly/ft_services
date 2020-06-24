@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ftps
-          image: vsftpd-server
+          image: vsftpd
           imagePullPolicy: Never
           ports:
             - containerPort: 21
