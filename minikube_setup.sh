@@ -1,5 +1,7 @@
 #!/bin/sh
 
+MINIKUBE_OPT="--driver=virtualbox"
+
 STATUS_WAITING="Queued"
 STATUS_INIT="Building"
 STATUS_START="Starting"
@@ -36,8 +38,9 @@ exec_dialog ()
 
 delete ()
 {
-	killall -q minikube
+	killall minikube > /dev/null 2>&1
 	minikube delete
+	rm -rf $HOME/goinfre/.minikube
 }
 
 update ()
@@ -57,10 +60,11 @@ setup_pods ()
 		exec_dialog
 		cd ${DIR[$counter]}
 		if [ -n "$1" ]
-		then ./setup.sh delete &>>../../log.txt
+		then
+			./setup.sh delete >> ../../log.txt 2>&1
 		fi
-		./setup.sh create_image &>>../../log.txt
-		./setup.sh add &>>../../log.txt
+		./setup.sh create_image >> ../../log.txt 2>&1
+		./setup.sh add >> ../../log.txt 2>&1
 		cd ../..
 		STATUS[$counter]=0
 		((PROGRESS += PROG_STEP))
@@ -79,14 +83,15 @@ setup ()
 	STATUS[0]="$STATUS_INIT"
 	delete
 	exec_dialog
-	minikube start &>>log.txt
+	export MINIKUBE_HOME="$HOME/goinfre"
+	minikube start $MINIKUBE_OPT >> log.txt 2>&1
 	if [ $? -ne 0 ]
 	then exit $?
 	fi
 	STATUS[0]=$?
 	STATUS[1]=$STATUS_INIT
 	((PROGRESS += POG_STEP))
-	minikube dashboard &>>log.txt &
+	minikube dashboard >> log.txt 2>&1 &
 	exec_dialog
 	sleep 15
 	STATUS[1]=0
