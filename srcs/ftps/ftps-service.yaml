@@ -14,3 +14,4 @@ spec:
       port: 2121
       targetPort: 2121
       name: ftp-data
+  type: LoadBalancer
