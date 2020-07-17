@@ -17,4 +17,3 @@ spec:
       targetPort: 2121
       name: ftp-data
   type: LoadBalancer
-  loadBalancerIP: _MINIKUBE_IP_

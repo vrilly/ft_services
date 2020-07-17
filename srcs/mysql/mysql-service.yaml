@@ -13,4 +13,3 @@ spec:
       targetPort: 3306
       name: mysql
   type: LoadBalancer
-  loadBalancerIP: _MINIKUBE_IP_
