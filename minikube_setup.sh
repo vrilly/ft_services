@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export MINIKUBE_HOME="$HOME/goinfre"
 MINIKUBE_OPT="--driver=virtualbox"
 
 STATUS_WAITING="Queued"
@@ -41,6 +42,7 @@ delete ()
 	killall minikube > /dev/null 2>&1
 	minikube delete
 	rm -rf $HOME/goinfre/.minikube
+	rm -rf $HOME/.minikube
 }
 
 update ()
@@ -83,8 +85,8 @@ setup ()
 	STATUS[0]="$STATUS_INIT"
 	delete
 	exec_dialog
-	export MINIKUBE_HOME="$HOME/goinfre"
 	minikube start $MINIKUBE_OPT >> log.txt 2>&1
+	ln -s $HOME/goinfre/.minikube $HOME/.minikube
 	if [ $? -ne 0 ]
 	then exit $?
 	fi
