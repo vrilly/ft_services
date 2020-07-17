@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+  annotations:
+    metallb.universe.tf/allow-shared-ip: minikube
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+      name: https
+    - protocol: TCP
+      port: 22
+      targetPort: 22
+      name: ssh
+  type: LoadBalancer
