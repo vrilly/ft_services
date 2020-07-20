@@ -13,11 +13,13 @@ NAME[2]="Load balancer"
 NAME[3]="FTP Server"
 NAME[4]="MYSQL Server"
 NAME[5]="HTTP Server"
+NAME[6]="InfluxDB Server"
 
 DIR[2]=srcs/load_balancer
 DIR[3]=srcs/ftps
 DIR[4]=srcs/mysql
 DIR[5]=srcs/webserver
+DIR[6]=srcs/influxdb
 
 STATUS[0]="$STATUS_WAITING"
 STATUS[1]="$STATUS_WAITING"
@@ -25,6 +27,7 @@ STATUS[2]="$STATUS_WAITING"
 STATUS[3]="$STATUS_WAITING"
 STATUS[4]="$STATUS_WAITING"
 STATUS[5]="$STATUS_WAITING"
+STATUS[6]="$STATUS_WAITING"
 
 PROGRESS=0
 PROG_STEP=20
@@ -38,7 +41,8 @@ exec_dialog ()
 	"${NAME[2]}" "${STATUS[2]}" \
 	"${NAME[3]}" "${STATUS[3]}" \
 	"${NAME[4]}" "${STATUS[4]}" \
-	"${NAME[5]}" "${STATUS[5]}"
+	"${NAME[5]}" "${STATUS[5]}" \
+	"${NAME[6]}" "${STATUS[6]}"
 }
 
 delete ()
@@ -60,7 +64,7 @@ update ()
 setup_pods ()
 {
 	counter=2
-	while [ $counter -le 5 ]
+	while [ $counter -le 6 ]
 	do
 		STATUS[$counter]=$STATUS_INIT
 		exec_dialog
