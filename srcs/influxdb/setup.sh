@@ -9,6 +9,7 @@ check_fail ()
 
 add ()
 {
+	kubectl apply -f influxdb-volume.yaml
 	kubectl apply -f influxdb-deployment.yaml
 	kubectl apply -f influxdb-service.yaml
 }

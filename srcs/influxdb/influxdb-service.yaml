@@ -12,4 +12,3 @@ spec:
       port: 8086
       targetPort: 8086
       name: influxdb
-  type: LoadBalancer
