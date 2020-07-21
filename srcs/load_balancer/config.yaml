@@ -9,4 +9,4 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - _MINIKUBE_IP_-_MINIKUBE_IP_
+      - 192.168.99.100-192.168.99.200

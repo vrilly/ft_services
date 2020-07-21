@@ -24,8 +24,6 @@ delete ()
 
 create_image ()
 {
-	sed "s/_MINIKUBE_IP_/$MINIKUBE_IP/g" \
-		config.yaml.template > config.yaml
 }
 
 eval $1
