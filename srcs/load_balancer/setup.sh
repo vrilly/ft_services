@@ -19,11 +19,11 @@ delete ()
 {
 	kubectl delete -f config.yaml
 	kubectl delete -f metallb.yaml
-	rm config.yaml
 }
 
 create_image ()
 {
+	echo "done"
 }
 
 eval $1
