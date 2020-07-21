@@ -21,11 +21,8 @@ delete ()
 
 create_image ()
 {
-	sed "s/_MINIKUBE_IP_/$MINIKUBE_IP/g" \
-		vsftpd.conf.template > vsftpd.conf
 	docker image build -t vsftpd .
 	check_fail
-	rm vsftpd.conf
 }
 
 eval $1

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apk add vsftpd openssl
+apk add vsftpd openssl curl jq
 touch /var/log/ftp.log
 chown ftp.ftp /var/log/ftp.log
 chmod 777 /var/log/ftp.log
