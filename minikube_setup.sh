@@ -53,6 +53,18 @@ exec_dialog ()
 	"${NAME[8]}" "${STATUS[8]}"
 }
 
+info ()
+{
+	echo "Setup done!"
+	echo "---"
+	kubectl get svc | tr -s ' ' | cut -f 1,2,4,5 -d " " | column -t
+	echo "---"
+	echo "# To point your shell to minikube's docker-daemon, run:"
+    echo "# eval \$(minikube -p minikube docker-env)"
+	echo "---"
+	echo "Logs are saved in $(pwd)/log.txt"
+}
+
 delete ()
 {
 	killall minikube > /dev/null 2>&1
@@ -67,6 +79,7 @@ update ()
 	eval $(minikube -p minikube docker-env)
 	((PROGRESS += 2*PROG_STEP))
 	setup_pods rmfirst
+	info
 }
 
 setup_pods ()
@@ -119,8 +132,7 @@ setup ()
 	export MINIKUBE_IP=$(minikube ip)
 	eval $(minikube -p minikube docker-env)
 	setup_pods
-	dialog --msgbox "Cluster IP: $MINIKUBE_IP\nSuccess!" \
-		0 0
+	info
 }
 
 eval $1

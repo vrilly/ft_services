@@ -6,7 +6,6 @@ if [ -n "$1" ]
 then
 	echo "Log of cmd $0 $1 at $(date)" > log.txt
 	./minikube_setup.sh $1
-	echo "IP Address of cluster: $(minikube ip)"
 else
 	exec 3>&1
 	ACTION=$(dialog --menu "ft_services menu" 24 -1 -1 \
