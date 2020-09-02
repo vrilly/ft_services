@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: vsftpd
+  name: vsftpd-storage
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,3 +35,10 @@ spec:
               name: ftp-control
             - containerPort: 2121
               name: ftp-data
+          volumeMounts:
+          - mountPath: /ftp_root
+            name: ftp-root
+      volumes:
+      - name: ftp-root
+        persistentVolumeClaim:
+          claimName: vsftpd-storage
