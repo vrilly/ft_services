@@ -1,5 +1,6 @@
 FROM alpine
 COPY image-setup.sh /tmp/
 COPY my.cnf /etc/mysql/my.cnf
+COPY launch.sh /launch.sh
 RUN ["/bin/sh", "/tmp/image-setup.sh"]
-CMD /usr/bin/mysqld
+CMD ["/bin/sh", "/launch.sh"]

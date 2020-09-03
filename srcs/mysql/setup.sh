@@ -9,6 +9,7 @@ check_fail ()
 
 add ()
 {
+	kubectl apply -f mysql-volume.yaml
 	kubectl apply -f mysql-deployment.yaml
 	kubectl apply -f mysql-service.yaml
 }
@@ -17,6 +18,7 @@ delete ()
 {
 	kubectl delete -f mysql-deployment.yaml
 	kubectl delete -f mysql-service.yaml
+	kubectl delete -f mysql-volume.yaml
 }
 
 create_image ()

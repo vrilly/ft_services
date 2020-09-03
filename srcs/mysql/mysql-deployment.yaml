@@ -17,6 +17,13 @@ spec:
         - name: mysql
           image: mariadb
           imagePullPolicy: Never
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: var-lib-mysql
           ports:
             - containerPort: 3306
               name: mysql
+      volumes:
+      - name: var-lib-mysql
+        persistentVolumeClaim:
+          claimName: mysql-storage
