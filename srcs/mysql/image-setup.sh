@@ -1,4 +1,4 @@
 #!/bin/sh
 
-apk add mariadb
+apk add mariadb mysql-client
 mkdir -p /run/mysqld

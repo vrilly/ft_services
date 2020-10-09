@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        - name: wordpress
+          image: wp
+          imagePullPolicy: Never
+          env:
+            - name: WP_ADMIN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: admin
+                  key: password
+            - name: WP_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - containerPort: 5050
+              name: http
