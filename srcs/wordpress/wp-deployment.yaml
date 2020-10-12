@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: wordpress
+  name: wordpress-storage
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,3 +43,10 @@ spec:
           ports:
             - containerPort: 5050
               name: http
+          volumeMounts:
+            - mountPath: /var/www
+              name: var-www
+      volumes:
+      - name: var-www
+        persistentVolumeClaim:
+          claimName: wordpress-storage
