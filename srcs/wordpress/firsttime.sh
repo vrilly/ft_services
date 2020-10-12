@@ -14,7 +14,7 @@ then
 		--title="WP running in kubernetes" \
 		--admin_user=admin \
 		--admin_password="$WP_ADMIN_SECRET" \
-		--url="http://192.168.99.122:5050" \
+		--url="http://192.168.99.100:5050" \
 		--admin_email="postmaster@dum.my"
 	wp user create demo1 demo1@dum.my --role=subscriber --display_name="Demo Subscriber" --user_pass=demo1
 	wp user create demo2 demo2@dum.my --role=author --display_name="Demo Author" --user_pass=demo2
