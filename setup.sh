@@ -1,6 +1,19 @@
 #!/bin/sh
 
-export MINIKUBE_IP=$(minikube ip)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	if ! [ -x "$(command -v brew)" ]; then
+		echo "Please install brew first" >&2
+		exit 1
+	fi
+
+	if ! [ -x "$(command -v dialog)" ]; then
+		brew install dialog
+	fi
+
+	if ! [ -x "$(command -v minikube)" ]; then
+		brew install minikube
+	fi
+fi
 
 if [ -n "$1" ]
 then
