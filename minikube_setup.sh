@@ -16,6 +16,7 @@ NAME[6]="InfluxDB Server"
 NAME[7]="Grafana Dashboard"
 NAME[8]="Telegraf"
 NAME[9]="Wordpress"
+NAME[10]="Phpmyadmin"
 
 DIR[2]=srcs/load_balancer
 DIR[3]=srcs/ftps
@@ -25,6 +26,7 @@ DIR[6]=srcs/influxdb
 DIR[7]=srcs/grafana
 DIR[8]=srcs/telegraf
 DIR[9]=srcs/wordpress
+DIR[10]=srcs/phpmyadmin
 
 STATUS[0]="$STATUS_WAITING"
 STATUS[1]="$STATUS_WAITING"
@@ -36,6 +38,7 @@ STATUS[6]="$STATUS_WAITING"
 STATUS[7]="$STATUS_WAITING"
 STATUS[8]="$STATUS_WAITING"
 STATUS[9]="$STATUS_WAITING"
+STATUS[10]="$STATUS_WAITING"
 
 PROGRESS=0
 PROG_STEP=11
@@ -53,7 +56,8 @@ exec_dialog ()
 	"${NAME[6]}" "${STATUS[6]}" \
 	"${NAME[7]}" "${STATUS[7]}" \
 	"${NAME[8]}" "${STATUS[8]}" \
-	"${NAME[9]}" "${STATUS[9]}"
+	"${NAME[9]}" "${STATUS[9]}" \
+	"${NAME[10]}" "${STATUS[10]}"
 }
 
 info ()
@@ -86,7 +90,7 @@ update ()
 setup_pods ()
 {
 	counter=2
-	while [ $counter -le 9 ]
+	while [ $counter -le 10 ]
 	do
 		STATUS[$counter]=$STATUS_INIT
 		exec_dialog

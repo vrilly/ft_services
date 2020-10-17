@@ -6,6 +6,7 @@ then
 	cd /var/www/wordpress
 	wp core download
 	chmod -R 0777 wp-content
+	chown -R nobody.nobody .
 	wp config create \
 		--dbname=wordpress \
 		--dbuser=wordpress \
