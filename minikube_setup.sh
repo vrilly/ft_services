@@ -12,22 +12,22 @@ NAME[1]="Dashboard"
 NAME[2]="Load balancer"
 NAME[3]="FTP Server"
 NAME[4]="MYSQL Server"
-NAME[5]="HTTP Server"
-NAME[6]="InfluxDB Server"
-NAME[7]="Grafana Dashboard"
-NAME[8]="Telegraf"
-NAME[9]="Wordpress"
-NAME[10]="Phpmyadmin"
+NAME[5]="Wordpress"
+NAME[6]="Phpmyadmin"
+NAME[7]="HTTP Server"
+NAME[8]="Grafana Dashboard"
+NAME[9]="Telegraf"
+NAME[10]="InfluxDB Server"
 
 DIR[2]=srcs/load_balancer
 DIR[3]=srcs/ftps
 DIR[4]=srcs/mysql
-DIR[5]=srcs/webserver
-DIR[6]=srcs/influxdb
-DIR[7]=srcs/grafana
-DIR[8]=srcs/telegraf
-DIR[9]=srcs/wordpress
-DIR[10]=srcs/phpmyadmin
+DIR[5]=srcs/wordpress
+DIR[6]=srcs/phpmyadmin
+DIR[7]=srcs/webserver
+DIR[8]=srcs/grafana
+DIR[9]=srcs/telegraf
+DIR[10]=srcs/influxdb
 
 STATUS[0]="$STATUS_WAITING"
 STATUS[1]="$STATUS_WAITING"
@@ -106,6 +106,9 @@ setup_pods ()
 		./setup.sh create_image >> ../../log.txt 2>&1
 		./setup.sh add >> ../../log.txt 2>&1
 		cd ../..
+		STATUS[$counter]="$STATUS_START"
+		exec_dialog
+		sleep 5
 		STATUS[$counter]=0
 		((PROGRESS += PROG_STEP))
 		exec_dialog

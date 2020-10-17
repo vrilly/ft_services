@@ -8,6 +8,7 @@ then
 	mysql -e "CREATE DATABASE wordpress;"
 	mysql -e "CREATE USER wordpress@'%';"
 	mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO wordpress@'%';"
+	mysql -e "GRANT PROCESS on *.* to wordpress@'%';"
 	mysql -e "FLUSH PRIVILEGES;"
 	sleep 1
 	killall mysqld
