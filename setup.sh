@@ -23,7 +23,6 @@ else
 	exec 3>&1
 	ACTION=$(dialog --menu "ft_services menu" 24 -1 -1 \
 		setup "Setup minikube cluster" \
-		update "Delete and apply all deployments" \
 		delete "Destroy minikube cluster" \
 		dashboard "Launch dashboard" \
 		2>&1 1>&3)
