@@ -2,8 +2,10 @@
 
 check_fail ()
 {
-	if [ $? -ne 0 ]
-	then exit $?
+	FAIL=$?
+	if [ $FAIL -ne 0 ]
+	then
+		exit "$FAIL"
 	fi
 }
 

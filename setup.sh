@@ -6,6 +6,16 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 		exit 1
 	fi
 
+	if ! [ -x "$(command -v VBoxManage)" ]; then
+		echo "Please install VirtualBox from msc" >&2
+		exit 1
+	fi
+
+	if ! [ -x "$(command -v docker)" ]; then
+		echo "Please install Docker from msc" >&2
+		exit 1
+	fi
+
 	if ! [ -x "$(command -v dialog)" ]; then
 		brew install dialog
 	fi

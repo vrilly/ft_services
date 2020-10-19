@@ -3,9 +3,12 @@
 export MINIKUBE_HOME="$HOME/goinfre"
 MINIKUBE_OPT="--driver=virtualbox"
 
+ADMIN_PASSWORD="unsecure"
+
 STATUS_WAITING="Queued"
 STATUS_INIT="Building"
 STATUS_START="Starting"
+STATUS_FAILED="FAILED"
 
 NAME[0]="Minikube cluster"
 NAME[1]="Dashboard"
@@ -44,10 +47,12 @@ STATUS[10]="$STATUS_WAITING"
 PROGRESS=0
 PROG_STEP=11
 
+FAILED=0
+
 exec_dialog ()
 {
 	dialog \
-		--mixedgauge "$(tail -n5 log.txt)" 20 80 $PROGRESS \
+		--mixedgauge "$(tail -n5 log.txt)" 30 80 $PROGRESS \
 	"${NAME[0]}" "${STATUS[0]}" \
 	"${NAME[1]}" "${STATUS[1]}" \
 	"${NAME[2]}" "${STATUS[2]}" \
@@ -71,6 +76,7 @@ info ()
     echo "# eval \$(minikube -p minikube docker-env)"
 	echo "---"
 	echo "Logs are saved in $(pwd)/log.txt"
+	echo "Wordpress admin password: $ADMIN_PASSWORD"
 }
 
 delete ()
@@ -104,9 +110,17 @@ setup_pods ()
 			sleep 5
 		fi
 		./setup.sh create_image >> ../../log.txt 2>&1
-		./setup.sh add >> ../../log.txt 2>&1
+		if ! [ $? -eq 0 ]; then
+			STATUS[$counter]="$STATUS_FAILED"
+			FAILED=1
+			exec_dialog
+			sleep 5
+			break
+		else
+			./setup.sh add >> ../../log.txt 2>&1
+			STATUS[$counter]="$STATUS_START"
+		fi
 		cd ../..
-		STATUS[$counter]="$STATUS_START"
 		exec_dialog
 		sleep 5
 		STATUS[$counter]=0
@@ -131,7 +145,7 @@ setup ()
 	if [ $? -ne 0 ]
 	then exit $?
 	fi
-	kubectl create secret generic admin --from-literal=password=unsecure
+	kubectl create secret generic admin --from-literal=password="$ADMIN_PASSWORD"
 	STATUS[0]=$?
 	STATUS[1]=$STATUS_INIT
 	((PROGRESS += POG_STEP))
@@ -144,7 +158,11 @@ setup ()
 	export MINIKUBE_IP=$(minikube ip)
 	eval $(minikube -p minikube docker-env)
 	setup_pods
-	info
+	if [ $FAILED -eq 1 ]; then
+		echo "Setup failed, this might be due to network connectivity issues. Please retry once more and check the log for more information!"
+	else
+		info
+	fi
 }
 
 eval $1
