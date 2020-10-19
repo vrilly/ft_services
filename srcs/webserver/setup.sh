@@ -21,6 +21,7 @@ delete ()
 
 create_image ()
 {
+	cp ~/.ssh/id_rsa.pub .
 	docker image build -t nginx .
 	check_fail
 }
