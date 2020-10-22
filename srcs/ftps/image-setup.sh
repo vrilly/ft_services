@@ -1,6 +1,8 @@
 #!/bin/sh
 
-apk add vsftpd openssl curl jq
+echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+apk update
+apk add vsftpd openssl supervisor telegraf
 touch /var/log/ftp.log
 chown ftp.ftp /var/log/ftp.log
 chmod 777 /var/log/ftp.log
